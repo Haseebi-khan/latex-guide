@@ -1,0 +1,104 @@
+\documentclass[11pt]{article}
+\pagestyle{empty}
+\usepackage{amsmath, amssymb, amsfonts}
+% use for commenting line
+\usepackage{graphicx}
+% use changing enumitem name such as 1 2 3 to A B C
+\usepackage{enumitem}
+
+\begin{document}
+
+a
+b
+c
+d\\
+
+\begin{enumerate}
+\item pencil
+\item calculator
+\item ruler
+\item notebook
+    \begin{enumerate}
+    \item notes
+    \item homework
+    \item assessments
+        \begin{enumerate}
+        \item tests
+        \item quizzes
+        \item journal entries
+        \end{enumerate}
+    \end{enumerate}
+\item highlighters
+\end{enumerate}
+
+\vspace{1cm}
+
+
+% enumitem expects something like:
+
+% label=\Alph*.
+
+% label=\alph*)
+
+% label=\roman*]
+
+% label=\arabic*.
+
+To get A., B., C: 
+\begin{enumerate}[label=\Alph*.]
+\item pencil
+\item calculator
+\item ruler
+\item notebook
+\end{enumerate}
+
+
+
+
+
+
+\begin{enumerate}[label=\roman*]
+\item pencil
+\item calculator
+\item ruler
+\item notebook
+\end{enumerate}
+
+
+\vspace{2cm}
+
+
+
+\begin{enumerate} \setcounter{enumi}{6}
+\item pencil
+\item calculator
+\item ruler
+\item notebook
+    \begin{enumerate}
+    \item notes
+    \item homework
+    \item assessments
+        \begin{enumerate}
+        \item tests
+        \item quizzes
+        \item journal entries
+        \end{enumerate}
+    \end{enumerate}
+\item highlighters
+\end{enumerate}
+
+\vspace{2cm}
+
+\begin{enumerate}[label=\roman*]
+\item[] pencil
+\item[] calculator
+\item[] ruler
+\item[] notebook
+\end{enumerate}
+
+
+
+
+
+
+\end{document}
