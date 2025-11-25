@@ -1,0 +1,89 @@
+\documentclass[11pt, letterpaper]{article} 
+%a4paper1 %letterpaper 
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb, amsfonts}
+%\usepackage{fullpage}
+\usepackage[margin=1in]{geometry}
+%\usepackage[top=1in,bottom=1in,left=0.5in,right=0.5in]{geometry}
+\usepackage{caption}
+
+\DeclareCaptionJustification{raggedleft}{\raggedleft}
+
+
+\usepackage{float}
+\title{\textbf{Packages, Macros and Graphics}}
+\author{Haseeb Khan}
+\date{\today}
+
+
+%Macros
+\def\equ1{$y = \dfrac{z}{3x^2+3x+4}$}
+
+\newcommand{\set}[1]{ \setlength{\itemsep}{#1em} }
+
+\begin{document}
+
+\maketitle
+\vspace{1cm}
+\noindent\textbf{Critical Thinking Questions}
+\vspace{0.5em} 
+
+%\includegraphics[scale=0.07]{2}
+% you can also use width=34in and height=34in
+%you can also use  width=0.45\textwidth   
+
+
+
+
+%\centering centers the content.
+
+%\raggedleft pushes the content to the right edge.
+
+%\raggedright pushes the content to the left edge.
+
+
+
+
+\begin{figure}[H]
+	\begin{flushright} 
+		\includegraphics[width=0.4\textwidth]{2}
+		\captionsetup{justification=raggedleft, singlelinecheck=false} 
+		\caption{The Squeeze Theorem}
+	\end{flushright}
+\end{figure}
+
+
+
+\begin{enumerate}
+
+%\set{3}
+\item Let's examine the Function: \equ1
+
+\item This is the symbol for set of the all real number: $\mathbb{R}$
+
+\item This is the symbol for set of integers: $\mathbb{Z}$
+
+\item This is the symbol for set of rationals: $\mathbb{Q}$
+
+
+\item Is it possible for a sequence to converge to two different numbers? If so, give an example. If not, explain why not.
+
+\item Explain how to use partial sums to determine if a series converges or diverges. Give an example
+
+\item Explain why $\int_{1}^{\infty} f(x)\,dx$ and $\sum_{n=1}^{\infty} a_{n}$ need not converge to the same value, even if they are both convergent.
+
+\item In your own words, explain the Alternating Series Remainder Theorem. How is this theorem useful?
+
+\item Explain the difference between absolute and conditional convergence. Give an example of each.
+
+\item The Ratio Test is inconclusive if $\lim_{n\to\infty} \left|\frac{a_{n+1}}{a_{n}}\right| = 1$. Give an example of one convergent series and one divergent series for which $\lim_{n\to\infty} \left|\frac{a_{n+1}}{a_{n}}\right| = 1$. Explain how you determined your examples.
+
+\end{enumerate}
+
+
+
+
+
+
+
+\end{document}
