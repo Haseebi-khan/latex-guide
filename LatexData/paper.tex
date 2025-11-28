@@ -1,0 +1,427 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts, graphicx, multicol}
+\usepackage{geometry, lipsum, titling, fullpage, url, wrapfig}
+\usepackage{doi}
+\usepackage[nottoc]{tocbibind}
+\usepackage{float}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\setlength{\droptitle}{-1.5cm}
+\pretitle{\begin{flushleft}\LARGE\bfseries}
+\posttitle{\end{flushleft}}
+\preauthor{\begin{flushleft}\large}
+\postauthor{\end{flushleft}}
+\predate{\begin{flushleft}\large}
+\postdate{\end{flushleft}}
+
+\title{Early Fire Detection Using Convolutional Neural Networks During Surveillance for Effective Disaster Management}
+\author{Haseeb Khan F20232661009, Deep Learning, CS4152 \\ Instructor name: Dr Jameel Ahmad \\
+Semester: Fall 2025}
+\date{\today}
+
+
+\makeatletter
+\renewenvironment{abstract}{
+    \begin{flushleft}
+    \bfseries\large Abstract\\[0.5em]
+    \normalfont\normalsize
+}{\end{flushleft}}
+\makeatother
+
+
+\begin{document}
+\maketitle
+\vspace{-0.4in}
+\noindent\rule{\linewidth}{0.5pt}
+
+
+\begin{flushleft}
+\begin{abstract}
+\noindent
+Early fire detection is man made disasters,which cause ecological, social, and economic damage. To minimize these losses, it plays a crucial role in reducing potential damage, protecting human life, and enabling rapid emergency response.  Therefore, in this article, we propose an early fire detection framework using fine-tuned convolutional neural networks for CCTV surveillance cameras, which can detect fire in environments. The study highlights the effectiveness of deep learning in recognizing fire patterns with high accuracy and minimal false alarms.
+\end{abstract}
+\vspace{0.3cm}
+\textbf{Keywords:} Fire Detection, CNN, Deep Learning, Surveillance Systems, Disaster Management
+
+\end{flushleft}
+
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+
+\section{Introduction}
+
+Disaster management is an interdisciplinary field involving business, computer science, health, and environmental sciences \cite{Hristidis2010, Adam2012, GuhaSapir2015}. According to FEMA, disasters can be categorized into technological (e.g: hazardous materials, terrorism, nuclear incidents) and natural (e.g: earthquakes, forest fires) \cite{GuhaSapir2015}. Regardless of the types, effective management relies on several core components including prevention, early warning, early detection, public notification, response mobilization, containment, and medical relief. Disaster management typically involves four phases: preparedness, mitigation, response, and recovery, each requiring different types of data \cite{Song2016, Lo2015}. Such data can be processed using information extraction, retrieval, filtering, data mining, and decision-support techniques. The general flow of data used in disaster management is illustrated in
+\hyperref[fig:data_flow]{\textbf{Fig. 1}}.
+
+Among the many sources of disaster-related data, online streaming data from CCTV cameras is particularly valuable for early detection of disasters such as fire and flood, enabling quicker decision making and reducing loss of life \cite{Muhammad2018, Chi2016}. Fire disasters especially result from human error or system failures, causing both ecological and economic damage \cite{GuhaSapir2015}. Statistics show significant losses worldwide: for example, wildfires in 2015 caused 494,000 victims and US \$3.1 billion in damages \cite{GuhaSapir2015}. In Europe, around 10,000 $km^2$ of vegetation burns annually, with even larger affected areas reported in Russia and North America. Major incidents, such as the Arizona fire of 2013 and the California forest fire of 2013, highlight the critical need for early detection to mitigate catastrophic outcomes \cite{Muhammad2018}.
+
+Traditional fire detection systems depend on Fast-flame detector or optical sensors, which must be placed close to the fire and provide limited information regarding fire size, location, and intensity \cite{Chen2004, Qiu2012, Liu2004}. These systems also require human confirmation, reducing efficiency. In response, many visual sensor-based systems have been proposed \cite{Celik2007, Ko2009}.
+\vspace{0.05in}
+
+\noindent
+They offer several advantages: 
+\begin{enumerate}
+	\item Low cost due to existing surveillance setups.
+	\item Ability to monitor wide areas.
+	
+%Figure 1
+\noindent
+\hspace*{-1.1cm}\includegraphics[width=0.5\textwidth]{Figure1.png}
+\begin{center}
+	\vspace{-0.5cm}
+    \hspace*{-1.5cm}\small \textbf{Figure 1.} Flow of data in disaster management system.
+    \label{fig:data_flow}
+\end{center}
+	\item Faster response by eliminating heat diffusion delays, flexibility for detecting smoke or flames.
+	\item Remote confirmation of fire outbreaks.
+\end{enumerate}
+
+More detailed fire information. Despite these advantages, visual systems face challenges \cite{Toreyin2006, Mueller2013, Lo2015}:
+ 
+\begin{enumerate}
+		\item Complex scenes.
+		\item Variations in lighting.
+		\item Poor image quality.
+		\item Background objects.
+\end{enumerate}
+
+Moreover, sending all camera streams continuously is impractical due to limited network bandwidth, making efficient and reliable transmission essential \cite{Akyildiz2006, Umar2013}.
+
+To overcome these challenges, the authors propose a CNN-based early fire detection framework integrated with IoMT (Internet of Multimedia Things) \cite{Muhammad2018}.
+\noindent
+Their contributions include:
+
+Using deep CNN features instead of hand-engineered features, enabling more robust fire detection under varying conditions. AlexNet is used as the baseline architecture and is fine-tuned for improved accuracy and reduced complexity \cite{Krizhevsky2012, Jia2014}.
+
+Introducing an adaptive prioritization mechanism for surveillance cameras. Cameras can switch their operational status dynamically based on importance, and a high-resolution camera can be activated when fire is detected to capture critical scenes for real-time analysis and confirmation \cite{Sun2017}.
+
+Developing a dynamic channel-selection algorithm based on cognitive radio networks to ensure reliable data transmission from high-priority cameras. This provides an autonomous communication system capable of supporting disaster management teams with timely and trustworthy information \cite{Jiang2017}.
+
+Overall, the proposed approach enhances early fire detection, reduces false alarms, ensures efficient bandwidth usage, and provides reliable communication for effective disaster management.
+
+\noindent\rule{\linewidth}{0.5pt}
+
+The rest of the paper is structured as follows: 
+Related work on fire detection and disaster management is presented in Section 2. 
+Our proposed work is explained in Section 3. 
+Experimental results are provided in Section 4. 
+Finally, our work is concluded in Section 5.
+
+\noindent\rule{\linewidth}{0.5pt}
+
+%Figure 2
+\vspace{0.5cm}
+\noindent
+\hspace*{0.0cm}\includegraphics[width=0.5\textwidth]{Figure2.png}
+\begin{center}
+	\vspace*{-0.2cm}
+	\small \textbf{Figure 2.}  Early fire detection using CNN with reliable communication for effective disaster management.
+	\label{fig:early_fire}
+\end{center}
+\vspace*{1cm}
+
+
+\section{Related Work}
+
+Early fire detection has traditionally relied on sensors such as ionization, and optical detectors \cite{Chen2004, Qiu2012, Liu2004}. Although effective in controlled environments, these sensors require close proximity to heat or smoke, making them unsuitable for large, dynamic, or critical areas \cite{Celik2007}. To address these limitations, vision-based systems have gained significant attention due to their ability to cover wide areas, respond quickly, and reduce human intervention \cite{Ko2009, Toreyin2006}. However, vision-based methods still face challenges related to lighting variations, scene complexity, and limited camera quality \cite{Mueller2013, Lo2015}.
+
+%Figure 3
+\vspace{0.5cm}
+\noindent
+\hspace*{0.0cm}\includegraphics[width=0.5\textwidth]{Figure3.png}
+\begin{center}
+	\vspace*{-0.2cm}
+	\small \textbf{Figure 3.}  Architecture of the proposed CNN.
+	\label{fig:archi_cnn}
+\end{center}
+
+\vspace*{0.5cm}
+
+Researchers have proposed various fire detection techniques, including spatial analysis, spectral and shape-based modeling, color model-based classification (YCbCr, YUV), and the use of low-level features such as color, roughness, and skewness \cite{Chen2004, Celik2007, Ko2009}. While some approaches show promising results, many rely heavily on thresholds, making them sensitive to input variations and unreliable in real-world conditions \cite{Lo2015}. Color-based methods, in particular, often produce false positives when encountering red objects or fluctuating illumination \cite{Toreyin2006}.
+
+To reduce misclassification, later studies explored motion analysis, optical flow, dynamic textures, and shape changes to differentiate fire from moving rigid objects \cite{Mueller2013, Song2016}. Although these techniques improve accuracy, they often suffer from high computational cost, making them unsuitable for real-time applications \cite{Jia2014}.
+
+Overall, current fire detection methods either achieve high accuracy at the cost of slow processing or operate quickly but generate frequent false alarms \cite{Krizhevsky2012}. This gap highlights the need for a robust, real-time, and reliable fire detection system capable of functioning effectively under diverse environmental conditions \cite{Muhammad2018}.
+
+
+
+\section{The Proposed Framework}
+
+The proposed framework focuses on early fire detection for disaster management in environments such as public areas, forests, and nuclear facilities \cite{Hristidis2010, Toreyin2006}. Early detection is challenging due to variable lighting, shadows, and the presence of fire-colored moving objects \cite{Mueller2013, Song2016}. To address these issues, the study introduces a fine-tuned deep CNN model capable of detecting fire with high accuracy while minimizing false alarms \cite{Krizhevsky2012, Jia2014}. After detection, the system generates an immediate alert and forwards representative key frames through an adaptive prioritization scheme that determines which camera nodes should transmit data first \cite{Muhammad2018}. A reliable channel selection algorithm is then used to ensure that high-priority data is communicated through the best available channel \cite{Zhao2015, Akyildiz2006}.
+
+%Figure 4
+\vspace{0.5cm}
+\noindent
+\hspace*{0.0cm}\includegraphics[width=0.5\textwidth]{Figure4.png}
+\begin{center}
+	\vspace*{-0.2cm}
+	\small \textbf{Figure 4.} Sample query images along with their probabilities for CNN-based fire detection.
+	\label{fig:detection_prob}
+\end{center}
+
+\vspace*{0.2cm}
+
+The CNN architecture is based on a modified \textbf{AlexNet} model consisting of five convolution layers, three pooling layers, and three fully connected layers \cite{Zeiler2014}. Input images are processed through successive convolution and pooling operations, enabling the model to learn discriminative features without manual preprocessing feature extraction \cite{Krizhevsky2012}. Dropout layers reduce overfitting in the fully connected layers, while transfer learning using a pretrained \textbf{AlexNet} model improves classification accuracy by 4 to 5 \%. Fine-tuning for 10 epochs led to notable gains compared to training the model from scratch \cite{Muhammad2018}.
+
+For prediction, the CNN assigns probabilities to fire and non-fire classes, enabling reliable early-stage detection \cite{Jia2014}. To improve communication efficiency, the framework incorporates cognitive radio-based dynamic channel selection \cite{Akyildiz2006, Zhao2015}. Since fixed spectrum allocation is unsuitable for multimedia surveillance, cognitive radio enables opportunistic and reliable spectrum usage \cite{Akyildiz2006}. The system employs cooperative spectrum sensing across multiple camera nodes, allowing the sink node to evaluate channel conditions and assign the most reliable channels to high-priority cameras \cite{Zhao2015}. This ensures efficient transmission of critical fire-related frames to disaster management systems, even under congested spectrum conditions \cite{Muhammad2018}.
+
+\section{Results}
+
+This section presents the experiments conducted to evaluate the performance, accuracy, and robustness of the proposed CNN-based early fire detection framework \cite{Krizhevsky2012, Jia2014, Muhammad2018}. The evaluation was carried out using a combined dataset of 68,457 images sourced from multiple publicly available fire datasets, including Foggia’s video dataset \cite{Foggia2015} and Chino’s image dataset \cite{Chino2015}. Following standard protocol, 20\% of the data was used for training and 80\% for testing \cite{Krizhevsky2012}. The model was trained using Caffe on a system equipped with an Intel Core i5 processor, 64 GB RAM, an NVIDIA TITAN X GPU, and Ubuntu OS, while additional tests were performed in MATLAB \cite{Jia2014}.
+
+Experiments were conducted primarily on two challenging datasets: (1) Foggia’s dataset consisting of 31 videos captured in diverse indoor and outdoor environments \cite{Foggia2015}, and (2) Chino’s dataset containing 226 images with many fire-like visual distractors \cite{Chino2015}. The proposed method effectively handled challenges such as small, distant fires, smoke, fog, red-colored objects, and low-light conditions \cite{Mueller2013, Song2016}. Compared to existing state-of-the-art fire detection methods relying on color, shape, and motion features \cite{Toreyin2006, Celik2007}, the proposed CNN model achieved superior performance. On Foggia’s dataset, it improved accuracy from 93.55\% to 94.39\% and reduced false positives from 11.67\% to 9.07\%. On Chino’s dataset, it achieved the highest precision (0.82), recall (0.98), and F-measure (0.89), demonstrating its strong discriminative capability \cite{Muhammad2018}.
+
+%Table 1
+\vspace{0.3cm}
+\noindent
+\begin{center}
+	\vspace*{-0.2cm}
+	\small \textbf{Table 1.} Comparison with different fire detection methods on dataset 1.
+	\label{fig:table1}
+\end{center}
+
+\hspace*{-0.6cm}\includegraphics[width=0.5\textwidth]{Table1.png}
+
+%Table 2
+\vspace{0.3cm}
+\noindent
+\begin{center}
+	\vspace*{-0.2cm}
+	\small \textbf{Table 2.} Comparison with different fire detection methods on dataset 2.
+	\label{fig:table2}
+\end{center}
+
+\hspace*{-0.6cm}\includegraphics[width=0.5\textwidth]{Table2.png}
+
+\vspace*{0.2cm}
+
+Robustness tests were also conducted using noise attacks, cropping, flipping, and rotations \cite{Muhammad2018, Song2016}. Even after blocking major fire regions or adding noise, the system accurately detected fire with nearly 99\% accuracy. Similarly, in modified normal images containing small fire patches, the model successfully identified fire, showcasing its sensitivity to early-stage flames. Experiments on rotated images further confirmed the consistency of predictions \cite{Celik2007}. The system also demonstrated reliable rejection of non-fire scenes with fire-like elements.
+
+Finally, the computational analysis showed that the proposed method processes 17 frames per second on the given hardware, which is sufficient for real-time surveillance scenarios where cameras operate at 25–30 fps \cite{Muhammad2018}. Overall, the results underline the effectiveness, robustness, and real-time applicability of the proposed framework for disaster management systems \cite{Hristidis2010}.
+
+%Figure 5
+\vspace{0.5cm}
+\noindent
+\hspace*{-0.2cm}\includegraphics[width=0.5\textwidth]{Figure5.png}
+\begin{center}
+	\vspace*{-0.2cm}
+	\small \textbf{Figure 5.} Illustration of the effect of noise on the performance of our fire detection scheme. Images (a, b, c, and e) are predicted as fire while images (d and f) are predicted as normal.
+	\label{fig:noise_detection}
+\end{center}
+
+\vspace*{0.2cm}
+
+\section{Conclusion}
+
+In recent years, CCTV cameras have become powerful enough to handle tasks like motion detection and object tracking \cite{Hristidis2010, Toreyin2006}. Because of these advancements, we can now use CCTV systems to detect fire at an early stage, which is extremely helpful for disaster management and preventing major losses.
+
+In this work, a fire detection system was developed using a fine-tuned CNN model \cite{Krizhevsky2012, Jia2014}. By using deep learning features, the method detects fire early with high accuracy in both indoor and outdoor settings while keeping false alarms low \cite{Muhammad2018}. The system also introduces an automatic response mechanism where camera nodes change their priority depending on what they detect \cite{Muhammad2018}. Important frames are then sent reliably using cognitive radio networks to ensure quick action \cite{Akyildiz2006, Zhao2015}.
+
+Experiments on different videos showed that the proposed framework can accurately detect real fire and fire-like objects, maintaining early detection and reliable communication two essential requirements for disaster management \cite{Foggia2015, Chino2015}.
+
+However, the current model size is quite large (238 MB). In the future, the system can be improved by using lightweight CNNs to reduce model size without compromising accuracy \cite{Muhammad2018}. Another limitation is the lack of an authentication mechanism for transmitted frames. Techniques like steganography and watermarking can be used to embed hidden information into key frames for secure communication \cite{Wang2017}.
+
+
+\begin{thebibliography}{99}
+
+
+\bibitem{Hristidis2010}
+\href{https://doi.org/10.1016/j.jss.2010.04.053}{V. Hristidis, S.-C. Chen, T. Li, S. Luis, Y. Deng, Survey of data management and analysis in disaster situations, \textit{J. Syst. Softw.} \textbf{83} (2010) 1701--1714.}
+
+\bibitem{Adam2012}
+\href{https://ieeexplore.ieee.org/abstract/document/6365203}{N.R. Adam, B. Shafiq, R. Stan, Spatial computing and social media in the context of disaster management, \textit{IEEE Intell. Syst.} \textbf{27} (2012) 90--96.}
+
+\bibitem{Song2016}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0925231215018603}{X. Song, L. Sun, J. Lei, D. Tao, G. Yuan, M. Song, Event-based large scale surveillance video summarization, \textit{Neurocomputing} \textbf{187} (2016) 66--74.}
+
+\bibitem{Chi2016}
+\href{https://www.scopus.com/pages/publications/84961209254}{R. Chi, Z.-M. Lu, Q.-G. Ji, Real-time multi-feature based fire flame detection in video, \textit{IET Image Process.} \textbf{11} (2016) 31--37.}
+
+\bibitem{Lo2015}
+\href{https://www.mdpi.com/1424-8220/15/2/2369}{S.-W. Lo, J.-H. Wu, F.-P. Lin, C.-H. Hsu, Cyber surveillance for flood disasters, \textit{Sensors} \textbf{15} (2015) 2369--2387.}
+
+\bibitem{Chen2004}
+\href{https://www.scopus.com/pages/publications/20444468490}{T.-H. Chen, P.-H. Wu, Y.-C. Chiou, An early fire-detection method based on image processing, in: Proceedings of ICIP’04, 2004, pp. 1707--1710.}
+
+\bibitem{GuhaSapir2015}
+\href{http://www.cred.be/sites/default/files/ADSR_2015.pdf}{D. Guha-Sapir, F. Vos, R. Below, S. Penserre, Annual disaster statistical review 2015: the numbers and trends, 2015.}
+
+\bibitem{Muhammad2018}
+\href{https://doi.org/10.1016/j.neucom.2017.04.083}{K. Muhammad et al., Early fire detection using convolutional neural networks during surveillance for effective disaster management, \textit{Neurocomputing} (2018) 1--13.}
+
+\bibitem{Toulouse2015}
+\href{https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/iet-ipr.2014.0935}{T. Toulouse, L. Rossi, M. Akhloufi, T. Celik, X. Maldague, Benchmarking of wildland fire colour segmentation algorithms, \textit{IET Image Process.} \textbf{9} (2015) 1064--1072.}
+
+\bibitem{Bicen2012}
+\href{https://www.scopus.com/pages/publications/84859787674}{A.O. Bicen, V.C. Gungor, O.B. Akan, Delay-sensitive and multimedia communication in cognitive radio sensor networks, \textit{Ad Hoc Netw.} \textbf{10} (2012) 816--830.}
+
+\bibitem{Qiu2012}
+\href{https://ieeexplore.ieee.org/document/6119219}{T. Qiu, Y. Yan, G. Lu, An autoadaptive edge-detection algorithm for flame and fire image processing, \textit{IEEE Trans. Instrum. Meas.} \textbf{61} (2012) 1486--1493.}
+
+\bibitem{Liu2004}
+\href{https://www.scopus.com/pages/publications/10044247009}{C.-B. Liu, N. Ahuja, Vision based fire detection, in: Proceedings of ICPR 2004, 2004, pp. 134--137.}
+
+\bibitem{Celik2007}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1047320306000927}{T. Celik, H. Demirel, H. Ozkaramanli, M. Uyguroglu, Fire detection using statistical color model in video sequences, \textit{J. Vis. Commun. Image Represent.} \textbf{18} (2007) 176--185.}
+
+\bibitem{Ko2011}
+\href{https://www.scopus.com/pages/publications/83255176172}{B.C. Ko, S.J. Ham, J.Y. Nam, Modeling and formalization of fuzzy finite automata for detection of irregular fire flames, \textit{IEEE Trans. Circuits Syst. Video Technol.} \textbf{21} (2011) 1903--1912.}
+
+\bibitem{Foggia2015}
+\href{https://www.scopus.com/pages/publications/84940991073}{P. Foggia, A. Saggese, M. Vento, Real-time fire detection for video-surveillance applications using a combination of experts based on color, shape, and motion, \textit{IEEE Trans. Circuits Syst. Video Technol.} \textbf{25} (2015) 1545--1556.}
+
+\bibitem{Mueller2013}
+\href{https://www.scopus.com/pages/publications/84878336666}{M. Mueller, P. Karasev, I. Kolesov, A. Tannenbaum, Optical flow estimation for flame detection in videos, \textit{IEEE Trans. Image Process.} \textbf{22} (2013) 2786--2797.}
+
+\bibitem{Toreyin2006}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0167865505001819}{B.U. Töreyin, Y. Dedeoğlu, U. Güdükbay, A.E. Cetin, Computer vision based method for real-time fire and flame detection, \textit{Pattern Recogn. Lett.} \textbf{27} (2006) 49--58.}
+
+\bibitem{Luo2007}
+\href{https://www.scopus.com/pages/publications/34347387080}{R.C. Luo, K.L. Su, Autonomous fire-detection system using adaptive sensory fusion for intelligent security robot, \textit{IEEE/ASME Trans. Mechatron.} \textbf{12} (2007) 274--281.}
+
+\bibitem{Borges2010}
+\href{https://www.scopus.com/pages/publications/77952228950}{P.V.K. Borges, E. Izquierdo, A probabilistic approach for vision-based fire detection in videos, \textit{IEEE Trans. Circuits Syst. Video Technol.} \textbf{20} (2010) 721--731.}
+
+\bibitem{Mehmood2014}
+\href{https://www.mdpi.com/1424-8220/14/9/17112}{I. Mehmood, M. Sajjad, S.W. Baik, Mobile-cloud assisted video summarization framework for efficient management of remote sensing data generated by wireless capsule sensors, \textit{Sensors} \textbf{14} (2014) 17112--17145.}
+
+\bibitem{Sorbara2015}
+\href{https://ieeexplore.ieee.org/abstract/document/7133652}{A. Sorbara, E. Zereik, M. Bibuli, G. Bruzzone, M. Caccia, Low cost optronic obstacle detection sensor for unmanned surface vehicles, in: Proceedings of IEEE Sensors Applications Symposium, SAS, 2015, pp. 1--6.}
+
+\bibitem{Ko2009}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0379711208000957}{B.C. Ko, K.-H. Cheong, J.-Y. Nam, Fire detection based on vision sensor and support vector machines, \textit{Fire Saf. J.} \textbf{44} (2009) 322--329.}
+
+\bibitem{Dimitropoulos2015}
+\href{https://www.scopus.com/pages/publications/84923858543}{K. Dimitropoulos, P. Barmpoutis, N. Grammalidis, Spatio-temporal flame modeling and dynamic texture analysis for automatic video-based fire detection, \textit{IEEE Trans. Circuits Syst. Video Technol.} \textbf{25} (2015) 339--351.}
+
+\bibitem{Zhang2008}
+\href{https://ieeexplore.ieee.org/document/4721860}{Z. Zhang, J. Zhao, D. Zhang, C. Qu, Y. Ke, B. Cai, Contour based forest fire detection using FFT and wavelet, in: Proceedings of International Conference on Computer Science and Software Engineering, 2008, pp. 760--763.}
+
+\bibitem{Celik2009}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0379711208000568}{T. Celik, H. Demirel, Fire detection in video sequences using a generic color model, \textit{Fire Saf. J.} \textbf{44} (2009) 147--158.}
+
+\bibitem{Marbach2006}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0379711206000142}{G. Marbach, M. Loepfe, T. Brupbacher, An image processing technique for fire detection in video images, \textit{Fire Saf. J.} \textbf{41} (2006) 285--289.}
+
+\bibitem{Phillips2002}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0167865501001350}{W. Phillips III, M. Shah, N.da Vitoria Lobo, Flame recognition in video, \textit{Pattern Recogn. Lett.} \textbf{23} (2002) 319--327.}
+
+\bibitem{Han2006}
+\href{https://link.springer.com/chapter/10.1007/11919629_5}{D. Han, B. Lee, Development of early tunnel fire detection algorithm using image processing, in: Proceedings of International Symposium on Visual Computing, 2006, pp. 39--48.}
+
+\bibitem{Rahman2009}
+\href{https://www.scopus.com/pages/publications/67249121369}{A. Rahman, M. Murshed, Detection of multiple dynamic textures using feature space mapping, \textit{IEEE Trans. Circuits Syst. Video Technol.} \textbf{19} (2009) 766--771.}
+
+\bibitem{Chan2015}
+\href{https://www.scopus.com/pages/publications/84959533227}{T.-H. Chan, K. Jia, S. Gao, J. Lu, Z. Zeng, Y. Ma, PCANet: a simple deep learning baseline for image classification, \textit{IEEE Trans. Image Process.} \textbf{24} (2015) 5017--5032.}
+
+\bibitem{Jiang2017}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1047320317300482}{B. Jiang, J. Yang, Z. Lv, K. Tian, Q. Meng, Y. Yan, Internet cross-media retrieval based on deep learning, \textit{J. Vis. Commun. Image Represent.} \textbf{48} (2017) 356--366.}
+
+\bibitem{Yang2017}
+\href{https://www.scopus.com/pages/publications/85031665523}{J. Yang, B. Jiang, B. Li, K. Tian, Z. Lv, A fast image retrieval method designed for network big data, \textit{IEEE Trans. Ind. Inform.} \textbf{13} (2017) 2350--2359.}
+
+\bibitem{Girshick2016}
+\href{https://www.scopus.com/pages/publications/84961595279}{R. Girshick, J. Donahue, T. Darrell, J. Malik, Region-based convolutional networks for accurate object detection and segmentation, \textit{IEEE Trans. Pattern Anal. Mach. Intell.} \textbf{38} (2016) 142--158.}
+
+\bibitem{Anwar2015}
+\href{https://ieeexplore.ieee.org/document/7178146}{S. Anwar, K. Hwang, W. Sung, Fixed point optimization of deep convolutional neural networks for object recognition, in: Proceedings of ICASSP, 2015, pp. 1131--1135.}
+
+\bibitem{Kantorov2016}
+\href{https://link.springer.com/chapter/10.1007/978-3-319-46454-1_22}{V. Kantorov, M. Oquab, M. Cho, I. Laptev, ContextLocNet: context-aware deep network models for weakly supervised localization, in: Proceedings of ECCV, 2016, pp. 350--365.}
+
+\bibitem{Zhang2015}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1053811914010660}{W. Zhang, R. Li, H. Deng, L. Wang, W. Lin, S. Ji, et al., Deep convolutional neural networks for multi-modality isointense infant brain image segmentation, \textit{NeuroImage} \textbf{108} (2015) 214--224.}
+
+\bibitem{Liu2017}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0925231216315533}{W. Liu, Z. Wang, X. Liu, N. Zeng, Y. Liu, F.E. Alsaadi, A survey of deep neural network architectures and their applications, \textit{Neurocomputing} \textbf{234} (2017) 11--26.}
+
+\bibitem{Krizhevsky2012}
+\href{https://proceedings.neurips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html}{A. Krizhevsky, I. Sutskever, G.E. Hinton, Imagenet classification with deep convolutional neural networks, in: Proceedings of Advances in Neural Information Processing Systems, 2012, pp. 1097--1105.}
+
+\bibitem{Sun2017}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0925231216312905}{M. Sun, Z. Song, X. Jiang, J. Pan, Y. Pang, Learning pooling for convolutional neural network, \textit{Neurocomputing} \textbf{224} (2017) 96--104.}
+
+\bibitem{Pan2010}
+\href{https://ieeexplore.ieee.org/abstract/document/5288526}{S.J. Pan, Q. Yang, A survey on transfer learning, \textit{IEEE Trans. Knowl. Data Eng.} \textbf{22} (2010) 1345--1359.}
+
+\bibitem{Deng2009}
+\href{https://ieeexplore.ieee.org/abstract/document/5206848}{J. Deng, W. Dong, R. Socher, L.-J. Li, K. Li, L. Fei-Fei, Imagenet: a large-scale hierarchical image database, in: Proceedings of CVPR, 2009, pp. 248--255.}
+
+\bibitem{Jiang2016}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1570870511000448}{D. Jiang, X. Ying, Y. Han, Z. Lv, Collaborative multi-hop routing in cognitive wireless networks, \textit{Wirel. Pers. Commun.} \textbf{86} (2016) 901--923.}
+
+\bibitem{Akyildiz2006}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1389128606002751}{I.F. Akyildiz, T. Melodia, K.R. Chowdhury, A survey on wireless multimedia sensor networks, \textit{Comput. Netw.} \textbf{51} (2007) 921--960.}
+
+\bibitem{Umar2013}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1874490712000687}{R. Umar, A.U. Sheikh, A comparative study of spectrum awareness techniques for cognitive radio oriented wireless networks, \textit{Phys. Commun.} \textbf{9} (2013) 148--170.}
+
+\bibitem{Mehmood2015}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1566253514000852}{I. Mehmood, M. Sajjad, W. Ejaz, S.W. Baik, Saliency-directed prioritization of visual data in wireless surveillance networks, \textit{Inf. Fusion} \textbf{24} (2015) 16--30.}
+
+\bibitem{Zhang2009}
+\href{https://ieeexplore.ieee.org/abstract/document/5351690}{W. Zhang, R.K. Mallik, K.B. Letaief, Optimization of cooperative spectrum sensing with energy detection in cognitive radio networks, \textit{IEEE Trans. Wirel. Commun.} \textbf{8} (2009).}
+
+\bibitem{Chino2015}
+\href{https://ieeexplore.ieee.org/document/7314551}{D.Y. Chino, L.P. Avalhais, J.F. Rodrigues, A.J. Traina, BoWFire: detection of fire in still images by integrating pixel color and texture analysis, in: Proceedings of SIBGRAPI, 2015, pp. 95--102.}
+
+\bibitem{Verstockt2013}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0167865512002401}{S. Verstockt, T. Beji, P. De Potter, S. Van Hoecke, B. Sette, B. Merci, et al., Video driven fire spread forecasting using multi-modal LWIR and visual flame and smoke data, \textit{Pattern Recogn. Lett.} \textbf{34} (2013) 62--69.}
+
+\bibitem{Jia2014}
+\href{https://dl.acm.org/doi/10.1145/2647868.2654889}{Y. Jia, E. Shelhamer, J. Donahue, S. Karayev, J. Long, R. Girshick, et al., Caffe: convolutional architecture for fast feature embedding, in: Proceedings of ACM Multimedia, 2014, pp. 675--678.}
+
+\bibitem{DiLascio2014}
+\href{https://link.springer.com/chapter/10.1007/978-3-319-11758-4_52}{R. Di Lascio, A. Greco, A. Saggese, M. Vento, Improving fire detection reliability by a combination of video analytics, in: Proceedings of International Conference on Image Analysis and Recognition, 2014, pp. 477--484.}
+
+\bibitem{Zeiler2014}
+\href{https://doi.org/10.1007/978-3-319-10590-1_53}{M. D. Zeiler, R. Fergus, Visualizing and Understanding Convolutional Networks, \textit{Computer Vision -- ECCV 2014} (Lecture Notes in Computer Science, vol.~8689) (2014) 818--833.}
+
+\bibitem{Habiboglu2012}
+\href{https://link.springer.com/article/10.1007/s00138-011-0369-1}{Y.H. Habiboğlu, O. Günay, A.E. Çetin, Covariance matrix-based fire and flame detection method in video, \textit{Mach. Vis. Appl.} \textbf{23} (2012) 1103--1113.}
+
+\bibitem{Rafiee2011}
+\href{https://ieeexplore.ieee.org/document/5764295}{A. Rafiee, R. Dianat, M. Jamshidi, R. Tavakoli, S. Abbaspour, Fire and smoke detection using wavelet analysis and disorder characteristics, in: Proceedings of ICCRD, 2011, pp. 262--265.}
+
+\bibitem{Muhammad2017a}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S1746809416301999}{K. Muhammad, M. Sajjad, M.Y. Lee, S.W. Baik, Efficient visual attention driven framework for key frames extraction from hysteroscopy videos, \textit{Biomed. Signal Process. Control} \textbf{33} (2017) 161--168.}
+
+\bibitem{Muhammad2016a}
+\href{https://www.scopus.com/pages/publications/84986325914}{K. Muhammad, J. Ahmad, M. Sajjad, S.W. Baik, Visual saliency models for summarization of diagnostic hysteroscopy videos in healthcare systems, \textit{SpringerPlus} \textbf{5} (2016) 1495.}
+
+\bibitem{Zhao2015}
+\href{https://doi.org/10.1155/2015/280415}{Y. Zhao, Candidate smoke region segmentation of fire video based on rough set theory, \textit{Journal of Electrical and Computer Engineering} (2015) Article ID 280415.}
+
+\bibitem{Rossi2011}
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0379711210000202}{L. Rossi, M. Akhloufi, Y. Tison, On the use of stereovision to develop a novel instrumentation system to extract geometric fire fronts characteristics, \textit{Fire Saf. J.} \textbf{46} (2011) 9--20.}
+
+\bibitem{Rudz2013}
+\href{https://iopscience.iop.org/article/10.1088/0957-0233/24/7/075403}{S. Rudz, K. Chetehouna, A. Hafiane, H. Laurent, O. Séro-Guillaume, Investigation of a novel image segmentation method dedicated to forest fire applications, \textit{Meas. Sci. Technol.} \textbf{24} (2013) 075403.}
+
+\bibitem{Muhammad2016b}
+\href{https://link.springer.com/article/10.1007/s11042-015-2671-9}{K. Muhammad, M. Sajjad, I. Mehmood, S. Rho, S.W. Baik, Image steganography using uncorrelated color space and its application for security of visual contents in online social networks, Future Gener. Comput. Syst. (2016)}
+
+\end{thebibliography}
+
+\begin{wrapfigure}{l}{0.18\textwidth}
+    \centering
+    \vspace{-10pt}
+    \includegraphics[width=0.18\textwidth]{Haseebkhan.jpg}
+    \vspace{-10pt}
+\end{wrapfigure}
+\noindent
+Haseeb Khan is a UMT student learning machine learning, deep learning, and AI. 
+He works with C++, contributes to open-source, and is interested in computer 
+vision and neural networks.
+
+
+\end{multicols}
+
+\end{document}
+
+
