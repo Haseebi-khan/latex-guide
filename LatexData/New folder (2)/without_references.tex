@@ -1,0 +1,157 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsfonts, graphicx, multicol}
+\usepackage{geometry, lipsum, titling, fullpage, url}
+
+
+\geometry{margin=1in}
+
+
+\setlength{\droptitle}{-1.5cm}
+\pretitle{\begin{flushleft}\LARGE\bfseries}
+\posttitle{\end{flushleft}}
+\preauthor{\begin{flushleft}\large}
+\postauthor{\end{flushleft}}
+\predate{\begin{flushleft}\large}
+\postdate{\end{flushleft}}
+
+\title{Early Fire D
+etection Using Convolutional Neural Networks During Surveillance for Effective Disaster Management}
+\author{Haseeb Khan \\ F20232661009 \\ CS4152}
+\date{\today}
+
+
+
+
+
+
+
+\makeatletter
+\renewenvironment{abstract}{
+    \begin{flushleft}
+    \bfseries\large Abstract\\[0.5em]
+    \normalfont\normalsize
+}{\end{flushleft}}
+\makeatother
+
+
+
+
+
+\begin{document}
+
+\maketitle
+
+\vspace{-0.4in}
+\noindent\rule{\linewidth}{0.5pt}
+
+\begin{flushleft}
+\begin{abstract}
+\noindent
+Early fire detection is man made disasters,which cause ecological, social, and economic damage. To minimize these losses, it plays a crucial role in reducing potential damage, protecting human life, and enabling rapid emergency response.  Therefore, in this article, we propose an early fire detection framework using fine-tuned convolutional neural networks for CCTV surveillance cameras, which can detect fire in environments. The study highlights the effectiveness of deep learning in recognizing fire patterns with high accuracy and minimal false alarms.
+\end{abstract}
+\vspace{0.3cm}
+\textbf{Keywords:} Fire Detection, CNN, Deep Learning, Surveillance Systems, Disaster Management
+
+\end{flushleft}
+
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+
+\section{Introduction}
+Disaster management is an interdisciplinary field involving business, computer science, health, and environmental sciences. According to FEMA, disasters can be categorized into technological (e.g: hazardous materials, terrorism, nuclear incidents) and natural (e.g: floods, earthquakes, forest fires). Regardless of the types, effective management relies on several core components including prevention, early warning, early detection, public notification, response mobilization, containment, and medical relief. Disaster management typically involves four phases preparedness, mitigation, response, and recovery each requiring different types of data. Such data can be processed using information extraction, retrieval, filtering, data mining, and decision-support techniques. The general flow of data used in disaster management is illustrated in \textbf{Fig. 1} of the original text.
+
+Among the many sources of disaster-related data, online streaming data from CCTV cameras is particularly valuable for early detection of disasters such as fire and flood, enabling quicker decision making and reducing loss of life. Fire disasters especially result from human error or system failures, causing both ecological and economic damage. Statistics show significant losses worldwide: for example, wildfires in 2015 caused 494,000 victims and US \$3.1 billion in damages. In Europe, around 10,000 $km^2$ of vegetation burns annually, with even larger affected areas reported in Russia and North America. Major incidents, such as the Arizona fire of 2013 and the California forest fire of 2013, highlight the critical need for early detection to mitigate catastrophic outcomes.
+
+Traditional fire detection systems depend on Fast-flame detector or optical sensors, which must be placed close to the fire and provide limited information regarding fire size, location, and intensity. These systems also require human confirmation, reducing efficiency. In response, many visual sensor-based systems have been proposed. 
+\vspace{0.05in}
+
+
+
+\noindent
+They offer several advantages: 
+\begin{enumerate}
+	\item Low cost due to existing surveillance setups
+	\item Ability to monitor wide areas
+	\item Faster response by eliminating heat diffusion delays flexibility for 					detecting smoke or flames
+	\item Remote confirmation of fire outbreaks
+\end{enumerate}
+
+\noindent
+More detailed fire information. Despite these advantages, visual systems face challenges:
+ 
+\begin{enumerate}
+		\item Complex scenes
+		\item Variations in lighting
+		\item Poor image quality
+		\item Background objects
+\end{enumerate}
+ 
+Moreover, sending all camera streams continuously is impractical due to limited network bandwidth, making efficient and reliable transmission essential.
+
+To overcome these challenges, the authors propose a CNN-based early fire detection framework integrated with IoMT (Internet of Multimedia Things). 
+\noindent
+Their contributions include:
+
+Using deep CNN features instead of hand-engineered features, enabling more robust fire detection under varying conditions. AlexNet is used as the baseline architecture and is fine-tuned for improved accuracy and reduced complexity.
+
+Introducing an adaptive prioritization mechanism for surveillance cameras. Cameras can switch their operational status dynamically based on importance, and a high-resolution camera can be activated when fire is detected to capture critical scenes for real-time analysis and confirmation.
+
+Developing a dynamic channel-selection algorithm based on cognitive radio networks to ensure reliable data transmission from high-priority cameras. This provides an autonomous communication system capable of supporting disaster management teams with timely and trustworthy information.
+
+Overall, the proposed approach enhances early fire detection, reduces false alarms, ensures efficient bandwidth usage, and provides reliable communication for effective disaster management.
+
+\noindent\rule{\linewidth}{0.5pt}
+
+The rest of the paper is structured as follows: 
+Related work on fire detection and disaster management is presented in Section 2. 
+Our proposed work is explained in Section 3. 
+Experimental results are provided in Section 4. 
+Finally, our work is concluded in Section 5.
+
+\noindent\rule{\linewidth}{0.5pt}
+\section{Related Work}
+
+Early fire detection has traditionally relied on sensors such as ionization, and optical detectors. Although effective in controlled environments, these sensors require close proximity to heat or smoke, making them unsuitable for large, dynamic, or critical areas. To address these limitations, vision based systems have gained significant attention due to their ability to cover wide areas, respond quickly, and reduce human intervention. However, vision based methods still face challenges related to lighting variations, scene complexity, and limited camera quality.
+
+Researchers have proposed various fire detection techniques, including spatial analysis, spectral and shape based modeling, color model based classification (YCbCr, YUV), and the use of low-level features such as color, roughness, and skewness. While some approaches show promising results, many rely heavily on thresholds, making them sensitive to input variations and unreliable in real-world conditions. Color-based methods, in particular, often produce false positives when encountering red objects or fluctuating illumination.
+
+To reduce misclassification, later studies explored motion analysis, optical flow, dynamic textures, and shape changes to differentiate fire from moving rigid objects. Although these techniques improve accuracy, they often suffer from high computational cost, making them unsuitable for real-time applications.
+
+Overall, current fire detection methods either achieve high accuracy at the cost of slow processing or operate quickly but generate frequent false alarms. This gap highlights the need for a robust, real-time, and reliable fire detection system capable of functioning effectively under diverse environmental conditions.
+
+
+\section{The proposed framework}
+
+The proposed framework focuses on early fire detection for disaster management in environments such as public areas, forests, and nuclear facilities. Early detection is challenging due to variable lighting, shadows, and the presence of fire colored moving objects. To address these issues, the study introduces a fine-tuned deep CNN model capable of detecting fire with high accuracy while minimizing false alarms. After detection, the system generates an immediate alert and forwards representative key frames through an adaptive prioritization scheme that determines which camera nodes should transmit data first. A reliable channel selection algorithm is then used to ensure that high-priority data is communicated through the best available channel.
+
+The CNN architecture is based on a modified \textbf{AlexNet} model consisting of five convolution layers, three pooling layers, and three fully connected layers. Input images are processed through successive convolution and pooling operations, enabling the model to learn discrimination features without manual preprocessing feature extraction. Dropout layers reduce over fitting in the fully connected layers, while transfer learning using a pretrained \textbf{AlexNet} model improves classification accuracy by 4 to 5 \%. Fine-tuning for 10 epochs led to notable gains compared to training the model from scratch.
+
+For prediction, the CNN assigns probabilities to fire and non-fire classes, enabling reliable early-stage detection. To improve communication efficiency, the framework incorporates cognitive radio based dynamic channel selection. Since fixed spectrum allocation is unsuitable for multimedia surveillance, cognitive radio enables opportunistic and reliable spectrum usage. The system employs cooperative spectrum sensing across multiple camera nodes, allowing the sink node to evaluate channel conditions and assign the most reliable channels to high-priority cameras. This ensures efficient transmission of critical fire-related frames to disaster management systems, even under congested spectrum conditions.
+
+\section{Results}
+
+This section presents the experiments conducted to evaluate the performance, accuracy, and robustness of the proposed CNN-based early fire detection framework. The evaluation was carried out using a combined dataset of 68,457 images sourced from multiple publicly available fire datasets, including Foggia’s video dataset and Chino’s image dataset. Following standard protocol, 20\% of the data was used for training and 80\% for testing. The model was trained using Caffe on a system equipped with an Intel Core i5 processor, 64 GB RAM, an NVIDIA TITAN X GPU, and Ubuntu OS, while additional tests were performed in MATLAB.
+
+Experiments were conducted primarily on two challenging data sets: (1) Foggia’s dataset consisting of 31 videos captured in diverse indoor and outdoor environments, and (2) Chino’s dataset containing 226 images with many fire-like visual distractors. The proposed method effectively handled challenges such as small, distant fires, smoke, fog, red-colored objects, and low-light conditions. Compared to existing state-of-the-art fire detection methods relying on color, shape, and motion features, the proposed CNN model achieved superior performance. On Foggia’s dataset, it improved accuracy from 93.55\% to 94.39\% and reduced false positives from 11.67\% to 9.07\%. On Chino’s dataset, it achieved the highest precision (0.82), recall (0.98), and F-measure (0.89), demonstrating its strong discriminative capability.
+
+Robustness tests were also conducted using noise attacks, cropping, flipping, and rotations. Even after blocking major fire regions or adding noise, the system accurately detected fire with nearly 99\% accuracy. Similarly, in modified normal images containing small fire patches, the model successfully identified fire, showcasing its sensitivity to early-stage flames. Experiments on rotated images further confirmed the consistency of predictions. The system also demonstrated reliable rejection of non-fire scenes with fire-like elements.
+
+Finally, the computational analysis showed that the proposed method processes 17 frames per second on the given hardware, which is sufficient for real-time surveillance scenarios where cameras operate at 25–30 fps. Overall, the results underline the effectiveness, robustness, and real-time applicability of the proposed framework for disaster management systems.
+
+\section{Conclusion}
+
+In recent years, CCTV cameras have become powerful enough to handle tasks like motion detection and object tracking. Because of these advancements, we can now use CCTV systems to detect fire at an early stage, which is extremely helpful for disaster management and preventing major losses.
+
+In this work, a fire detection system was developed using a fine-tuned CNN model. By using deep learning features, the method detects fire early with high accuracy in both indoor and outdoor settings while keeping false alarms low. The system also introduces an automatic response mechanism where camera nodes change their priority depending on what they detect. Important frames are then sent reliably using cognitive radio networks to ensure quick action.
+
+Experiments on different videos showed that the proposed framework can accurately detect real fire and fire-like objects, maintaining early detection and reliable communication two things that are essential for disaster management.
+
+However, the current model size is quite large (238 MB). In the future, the system can be improved by using lightweight CNNs to reduce model size without compromising accuracy. Another limitation is the lack of an authentication mechanism for transmitted frames. Techniques like steganography and watermarking can be used to embed hidden information into key frames for secure communication.
+
+
+
+\end{multicols}
+
+\end{document}
